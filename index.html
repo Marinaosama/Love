@@ -20,7 +20,6 @@
             overflow-x: hidden;
         }
 
-        /* القلوب الهادئة المتحركة */
         .heart-bg {
             position: fixed;
             top: -20px;
@@ -96,17 +95,6 @@
             margin: 5px 0;
         }
 
-        /* الكلام المتحرك */
-        .typing-text { 
-            font-size: 16px; 
-            color: #ff4d6d; 
-            font-weight: 600;
-            line-height: 1.6;
-            min-height: 48px;
-            padding: 0 10px;
-        }
-
-        /* صندوق العداد الكروت */
         .timer-container {
             background: #fff0f3;
             border: 2px dashed #ff85a1;
@@ -152,6 +140,24 @@
             color: #666;
             font-size: 13px;
             font-weight: 500;
+        }
+
+        .surprise-card {
+            background: #ffffff;
+            border: 2px dashed #ff4d6d;
+            border-radius: 20px;
+            padding: 20px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(255, 42, 95, 0.15);
+            margin-top: 10px;
+        }
+
+        .typing-text { 
+            font-size: 15px; 
+            color: #ff2a5f; 
+            font-weight: bold;
+            line-height: 1.8;
+            text-align: right;
         }
 
         .gift-box {
@@ -204,22 +210,16 @@
 </head>
 <body>
 
-<!-- تسجيل الدخول -->
 <div class="login-card" id="loginCard">
     <h1>اكتب الباسورد يا عمري ❤️</h1>
     <input type="password" id="passInput" placeholder="الباسورد هنا...">
     <button class="btn-main" onclick="checkPass()">دخول ✨</button>
 </div>
 
-<!-- المحتوى الرئيسي -->
 <div class="main-container hidden" id="mainCard">
     
     <div class="main-title">حبيبي 😍</div>
 
-    <!-- الكلام المتحرك اللي بيتكتب لوحده -->
-    <div class="typing-text" id="typewriter"></div>
-
-    <!-- العداد الكروت -->
     <div class="timer-container">
         <div class="timer-title">❤️ مع بعض وحبنا بيكبر بقالنا:</div>
         <div class="timer-grid">
@@ -242,12 +242,17 @@
         </div>
     </div>
 
-    <!-- الزرار العريض -->
-    <button class="btn-main" onclick="showMainSurprise()" style="width: 90%; max-width: 320px; margin-top: 10px;">
-        دوس يا ابو العيال ❤️
+    <!-- الزر بالاسم المطلوب بالضبط -->
+    <button class="btn-main" id="btnSurprise" onclick="showMainSurprise()" style="width: 90%; max-width: 320px; margin-top: 10px;">
+        دوس يا ابو العيال 🫂
     </button>
 
-    <!-- الهدية المنفصلة -->
+    <!-- كارت الكلام المتحرك -->
+    <div class="surprise-card hidden" id="surpriseCard">
+        <div class="typing-text" id="typewriter"></div>
+    </div>
+
+    <!-- الهدية السفلية -->
     <div style="margin-top: 5px;">
         <div class="gift-box" onclick="openGift()">🎁</div>
         <div style="font-size: 13px; color: #ff2a5f; font-weight: bold;">افتح الهدية دي كمان 🙈👇</div>
@@ -255,7 +260,6 @@
 
 </div>
 
-<!-- مشغل الموسيقى -->
 <div class="music-pill hidden" id="musicPill" onclick="toggleMusic()">
     <span class="music-text">❤️ أغنيتنا</span>
     <div class="music-btn" id="musicIcon">⏸</div>
@@ -278,15 +282,15 @@
     }
     createHearts();
 
-    // الكلام اللي بيتكتب حركة بحركة
-    const textToType = "بحبك يا نور عيني ❤️🥰 كل لحظة وأنت معايا هي أجمل لحظة في حياتي..";
+    const textToType = "بحبك يا نور عيني وبموت فيك وحقك عليا اني مقصره معاك وبزعلك كتير مني واني بنكد عليك علي طول بس انا ماليش غيرك اصلا وربنا يخليك ليا يحبيبي وميحرمنيش منك ابدا ولا اشوف فيك حاجه وحشه واشوفك احسن واحد فالدنيا دي كلها يروح قلبي انت بجد الحياه دي من غيرك ملهاش اي تلاتين لازمه اصلا انت اللي مخلي كل حاجه حلوه وليها طعم كده انت عوض ربنا الحلو 🌚 بحبك وبموت فيك ينور عيني انت 🥺🫂♥️♥️♥️";
     let index = 0;
+    let isTyping = false;
 
     function typeWriter() {
         if (index < textToType.length) {
             document.getElementById("typewriter").innerHTML += textToType.charAt(index);
             index++;
-            setTimeout(typeWriter, 60);
+            setTimeout(typeWriter, 35);
         }
     }
 
@@ -299,7 +303,6 @@
             
             const song = document.getElementById('bgSong');
             song.play().catch(() => {});
-            typeWriter();
             startTimer();
         } else {
             alert('الباسورد غلط يا روحي!');
@@ -337,7 +340,15 @@
     }
 
     function showMainSurprise() {
-        alert('أنا بعشق كل تفصيلة فيك يا ابو العيال! ❤️😍');
+        const surpriseCard = document.getElementById('surpriseCard');
+        surpriseCard.classList.remove('hidden');
+        
+        if (!isTyping) {
+            isTyping = true;
+            document.getElementById("typewriter").innerHTML = "";
+            index = 0;
+            typeWriter();
+        }
     }
 
     function openGift() {

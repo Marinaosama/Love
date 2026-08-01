@@ -1,160 +1,71 @@
-08.01 4:47 pm
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حبيبي ❤️</title>
+    <title>حبيبي 😍</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        #login-screen {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            width: 100%;
-            max-width: 400px;
-        }
-        h2 { color: #e94560; margin-bottom: 15px; }
-        input {
-            width: 80%;
-            padding: 12px;
-            border-radius: 20px;
-            border: 2px solid #e94560;
-            text-align: center;
-            font-size: 1rem;
-            margin-bottom: 15px;
-            outline: none;
-        }
-        button {
-            background: #e94560;
-            color: #fff;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 20px;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-        .error-msg { color: #ff4d4d; margin-top: 10px; display: none; }
-        
-        #main-content {
-            display: none;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 25px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            max-width: 450px;
-            width: 100%;
-        }
-        h1 { color: #e94560; margin-bottom: 10px; }
-        .btn-action {
-            background: #e94560;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            margin: 15px 0;
-            cursor: pointer;
-        }
-        #typewriter-text {
-            background: rgba(0,0,0,0.3);
-            padding: 15px;
-            border-radius: 12px;
-            text-align: right;
-            line-height: 1.8;
-            margin-top: 15px;
-            display: none;
-        }
-        #gift-box {
-            display: none;
-            margin-top: 20px;
-            font-size: 1.3rem;
-            color: #ff6b6b;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background: #0d0e15; color: #fff; text-align: center; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .card { background: rgba(255, 255, 255, 0.08); padding: 30px 20px; border-radius: 20px; width: 100%; max-width: 350px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { color: #ff4b72; font-size: 22px; margin-bottom: 15px; }
+        input { width: 100%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid #ff4b72; background: rgba(0,0,0,0.5); color: #fff; text-align: center; font-size: 16px; }
+        button { background: #ff4b72; color: #fff; border: none; padding: 12px; border-radius: 10px; font-size: 16px; font-weight: bold; width: 100%; }
+        .hidden { display: none; }
+        .timer-box { margin: 20px 0; padding: 15px; background: rgba(255,75,114,0.15); border-radius: 12px; border: 1px dashed #ff4b72; }
+        .timer { font-size: 16px; font-weight: bold; color: #ff4b72; margin-top: 5px; }
+        .gift-box { font-size: 60px; margin: 20px 0; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- شاشة الباسورد -->
-    <div id="login-screen">
-        <h2>اكتب الباسورد يا عمري ❤️</h2>
-        <input type="password" id="passInput" placeholder="الباسورد هنا...">
-        <br>
-        <button onclick="unlock()">دخول ✨</button>
-        <p class="error-msg" id="error">الباسورد غلط، حاول تاني </p>
+<div class="card" id="loginCard">
+    <h1>اكتب الباسورد يا عمري ❤️</h1>
+    <input type="password" id="passInput" placeholder="الباسورد هنا...">
+    <button onclick="checkPass()">دخول ✨</button>
+</div>
+
+<div class="card hidden" id="mainCard">
+    <h1>بحبك يا نور عيني ❤️</h1>
+    
+    <div class="timer-box">
+        <div>بقالنا مع بعض:</div>
+        <div class="timer" id="timer">جاري الحساب...</div>
     </div>
 
-    <!-- المحتوى الرئيسي -->
-    <div id="main-content">
-        <h1>حبيبي </h1>
-        <p style="color: #ff6b6b; margin-bottom: 10px;">15 / 5 / 2026 </p>
+    <div class="gift-box" onclick="alert('كل سنة وأنت معايا يا أغلى حاجة في حياتي! 🎁❤️')">🎁</div>
+    <p style="font-size: 12px; color: #aaa;">اضغط على الهدية 👆</p>
 
-        <button class="btn-action" id="startBtn" onclick="playAll()">دوس يا ابو العيال 🫂</button>
+    <audio id="bgSong" src="song.mp3" loop></audio>
+</div>
 
-        <div id="typewriter-text"></div>
-
-        <div id="gift-box">
-            <hr style="margin: 15px 0; border-color: rgba(255,255,255,0.2);">
-            <p> دوس على الهدية:</p>
-            <span style="font-size: 3rem; cursor: pointer;" onclick="showSurprise()"></span>
-            <p id="surpriseText" style="display:none; margin-top: 10px;">بحبك  🫂 ♥️</p>
-        </div>
-    </div>
-
-    <audio id="mySong" src="song.mp3" preload="auto"></audio>
-
-    <script>
-        function unlock() {
-            var pass = document.getElementById("passInput").value.trim();
-            if (pass === "حبيبي") {
-                document.getElementById("login-screen").style.display = "none";
-                document.getElementById("main-content").style.display = "block";
-            } else {
-                document.getElementById("error").style.display = "block";
-            }
+<script>
+    function checkPass() {
+        const pass = document.getElementById('passInput').value;
+        if(pass === '1552026' || pass === '15/5/2026' || pass === '15-5-2026') {
+            document.getElementById('loginCard').classList.add('hidden');
+            document.getElementById('mainCard').classList.remove('hidden');
+            const song = document.getElementById('bgSong');
+            song.play().catch(() => {});
+            startTimer();
+        } else {
+            alert('الباسورد غلط يا روحي!');
         }
+    }
 
-        const text = "بحبك يا نور عيني وبموت فيك وحقك عليا اني مقصره معاك وبزعلك كتير مني واني بنكد عليك علي طول بس انا ماليش غيرك اصلا وربنا يخليك ليا يحبيبي وميحرمنيش منك ابدا ولا اشوف فيك حاجه وحشه واشوفك احسن واحد فالدنيا دي كلها يروح قلبي انت بجد الحياه دي من غيرك ملهاش اي تلاتين لازمه اصلا انت اللي مخلي كل حاجه حلوه وليها طعم كده انت عوض ربنا الحلو  بحبك وبموت فيك ينور عيني انت 🥺🫂♥️♥️♥️";
+    function startTimer() {
+        const startDate = new Date('2026-05-15T00:00:00');
+        setInterval(() => {
+            const now = new Date();
+            const diff = now - startDate;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+            document.getElementById('timer').innerHTML = `${days} يوم و ${hours} ساعة و ${minutes} دقيقة و ${seconds} ثانية`;
+        }, 1000);
+    }
+</script>
 
-        function playAll() {
-            var song = document.getElementById("mySong");
-            song.play().catch(e => console.log("Audio play issue"));
-
-            document.getElementById("startBtn").style.display = "none";
-            var textDiv = document.getElementById("typewriter-text");
-            textDiv.style.display = "block";
-
-            let i = 0;
-            function type() {
-                if (i < text.length) {
-                    textDiv.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, 40);
-                } else {
-                    document.getElementById("gift-box").style.display = "block";
-                }
-            }
-            type();
-        }
-
-        function showSurprise() {
-            document.getElementById("surpriseText").style.display = "block";
-        }
-    </script>
 </body>
 </html>
-

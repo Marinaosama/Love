@@ -20,6 +20,7 @@
             overflow-x: hidden;
         }
 
+        /* القلوب الهادئة المتحركة */
         .heart-bg {
             position: fixed;
             top: -20px;
@@ -88,20 +89,24 @@
             gap: 15px;
         }
 
-        .sub-heading {
-            color: #ff4d6d;
-            font-size: 17px;
-            font-weight: 600;
-        }
-
         .main-title {
             color: #ff124f;
-            font-size: 48px;
+            font-size: 44px;
             font-weight: 900;
-            letter-spacing: 1px;
-            margin: -5px 0;
+            margin: 5px 0;
         }
 
+        /* الكلام المتحرك */
+        .typing-text { 
+            font-size: 16px; 
+            color: #ff4d6d; 
+            font-weight: 600;
+            line-height: 1.6;
+            min-height: 48px;
+            padding: 0 10px;
+        }
+
+        /* صندوق العداد الكروت */
         .timer-container {
             background: #fff0f3;
             border: 2px dashed #ff85a1;
@@ -199,18 +204,22 @@
 </head>
 <body>
 
+<!-- تسجيل الدخول -->
 <div class="login-card" id="loginCard">
     <h1>اكتب الباسورد يا عمري ❤️</h1>
     <input type="password" id="passInput" placeholder="الباسورد هنا...">
     <button class="btn-main" onclick="checkPass()">دخول ✨</button>
 </div>
 
+<!-- المحتوى الرئيسي -->
 <div class="main-container hidden" id="mainCard">
     
-    <div class="sub-heading">بحبك يا نور عيني ❤️🥰</div>
     <div class="main-title">حبيبي 😍</div>
-    <div class="sub-heading">بحبك يا نور عيني ❤️🥰</div>
 
+    <!-- الكلام المتحرك اللي بيتكتب لوحده -->
+    <div class="typing-text" id="typewriter"></div>
+
+    <!-- العداد الكروت -->
     <div class="timer-container">
         <div class="timer-title">❤️ مع بعض وحبنا بيكبر بقالنا:</div>
         <div class="timer-grid">
@@ -233,12 +242,12 @@
         </div>
     </div>
 
-    <div class="sub-heading">بحبك يا نور عيني ❤️🥰</div>
-
-    <button class="btn-main" onclick="showMainSurprise()" style="width: 90%; max-width: 320px;">
+    <!-- الزرار العريض -->
+    <button class="btn-main" onclick="showMainSurprise()" style="width: 90%; max-width: 320px; margin-top: 10px;">
         دوس يا ابو العيال ❤️
     </button>
 
+    <!-- الهدية المنفصلة -->
     <div style="margin-top: 5px;">
         <div class="gift-box" onclick="openGift()">🎁</div>
         <div style="font-size: 13px; color: #ff2a5f; font-weight: bold;">افتح الهدية دي كمان 🙈👇</div>
@@ -246,6 +255,7 @@
 
 </div>
 
+<!-- مشغل الموسيقى -->
 <div class="music-pill hidden" id="musicPill" onclick="toggleMusic()">
     <span class="music-text">❤️ أغنيتنا</span>
     <div class="music-btn" id="musicIcon">⏸</div>
@@ -268,6 +278,18 @@
     }
     createHearts();
 
+    // الكلام اللي بيتكتب حركة بحركة
+    const textToType = "بحبك يا نور عيني ❤️🥰 كل لحظة وأنت معايا هي أجمل لحظة في حياتي..";
+    let index = 0;
+
+    function typeWriter() {
+        if (index < textToType.length) {
+            document.getElementById("typewriter").innerHTML += textToType.charAt(index);
+            index++;
+            setTimeout(typeWriter, 60);
+        }
+    }
+
     function checkPass() {
         const pass = document.getElementById('passInput').value.trim();
         if(pass === 'حبيبي') {
@@ -277,6 +299,7 @@
             
             const song = document.getElementById('bgSong');
             song.play().catch(() => {});
+            typeWriter();
             startTimer();
         } else {
             alert('الباسورد غلط يا روحي!');

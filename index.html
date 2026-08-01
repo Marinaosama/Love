@@ -41,8 +41,8 @@
 
 <script>
     function checkPass() {
-        const pass = document.getElementById('passInput').value;
-        if(pass === '1552026' || pass === '15/5/2026' || pass === '15-5-2026') {
+        const pass = document.getElementById('passInput').value.trim();
+        if(pass === 'حبيبي') {
             document.getElementById('loginCard').classList.add('hidden');
             document.getElementById('mainCard').classList.remove('hidden');
             const song = document.getElementById('bgSong');

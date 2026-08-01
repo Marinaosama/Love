@@ -5,46 +5,276 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حبيبي 😍</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-        body { background: #0d0e15; color: #fff; text-align: center; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .card { background: rgba(255, 255, 255, 0.08); padding: 30px 20px; border-radius: 20px; width: 100%; max-width: 350px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { color: #ff4b72; font-size: 22px; margin-bottom: 15px; }
-        input { width: 100%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid #ff4b72; background: rgba(0,0,0,0.5); color: #fff; text-align: center; font-size: 16px; }
-        button { background: #ff4b72; color: #fff; border: none; padding: 12px; border-radius: 10px; font-size: 16px; font-weight: bold; width: 100%; }
-        .hidden { display: none; }
-        .timer-box { margin: 20px 0; padding: 15px; background: rgba(255,75,114,0.15); border-radius: 12px; border: 1px dashed #ff4b72; }
-        .timer { font-size: 16px; font-weight: bold; color: #ff4b72; margin-top: 5px; }
-        .gift-box { font-size: 60px; margin: 20px 0; cursor: pointer; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { 
+            background-color: #fcf8fa; 
+            color: #333; 
+            text-align: center; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px 15px; 
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .heart-bg {
+            position: fixed;
+            top: -20px;
+            color: #ff6b8b;
+            opacity: 0.5;
+            font-size: 18px;
+            animation: fall 6s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+            100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+        }
+
+        .login-card { 
+            background: #ffffff; 
+            padding: 30px 25px; 
+            border-radius: 25px; 
+            width: 100%; 
+            max-width: 350px; 
+            box-shadow: 0 10px 25px rgba(255, 75, 114, 0.12); 
+            border: 2px dashed #ff4d6d;
+            position: relative;
+            z-index: 10;
+        }
+        .login-card h1 { color: #ff2a5f; font-size: 22px; margin-bottom: 15px; }
+        input { 
+            width: 100%; 
+            padding: 14px; 
+            margin: 15px 0; 
+            border-radius: 15px; 
+            border: 1.5px solid #ff85a1; 
+            background: #fff0f3; 
+            color: #ff2a5f; 
+            text-align: center; 
+            font-size: 16px; 
+            outline: none;
+            font-weight: bold;
+        }
+        .btn-main { 
+            background: #ff2a5f; 
+            color: #fff; 
+            border: none; 
+            padding: 15px 30px; 
+            border-radius: 50px; 
+            font-size: 18px; 
+            font-weight: bold; 
+            width: 100%; 
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 42, 95, 0.3);
+            transition: transform 0.2s;
+        }
+        .btn-main:active { transform: scale(0.97); }
+
+        .hidden { display: none !important; }
+
+        .main-container {
+            width: 100%;
+            max-width: 380px;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .sub-heading {
+            color: #ff4d6d;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .main-title {
+            color: #ff124f;
+            font-size: 48px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin: -5px 0;
+        }
+
+        .timer-container {
+            background: #fff0f3;
+            border: 2px dashed #ff85a1;
+            border-radius: 20px;
+            padding: 20px 10px;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(255, 133, 161, 0.15);
+        }
+
+        .timer-title {
+            color: #4a4a4a;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .timer-grid {
+            display: flex;
+            justify-content: space-around;
+            gap: 8px;
+        }
+
+        .time-box {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 12px 5px;
+            flex: 1;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .time-number {
+            color: #ff2a5f;
+            font-size: 26px;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .time-label {
+            color: #666;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .gift-box {
+            font-size: 50px;
+            margin-top: 5px;
+            cursor: pointer;
+            animation: pulse 1.5s infinite;
+            display: inline-block;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+            100% { transform: scale(1); }
+        }
+
+        .music-pill {
+            position: fixed;
+            bottom: 25px;
+            right: 20px;
+            background: #ffffff;
+            padding: 8px 15px 8px 10px;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 100;
+            cursor: pointer;
+            border: 1px solid #ffe6eb;
+        }
+
+        .music-btn {
+            width: 32px;
+            height: 32px;
+            background: #ff2a5f;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .music-text {
+            color: #ff2a5f;
+            font-size: 14px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
-<div class="card" id="loginCard">
+<div class="login-card" id="loginCard">
     <h1>اكتب الباسورد يا عمري ❤️</h1>
     <input type="password" id="passInput" placeholder="الباسورد هنا...">
-    <button onclick="checkPass()">دخول ✨</button>
+    <button class="btn-main" onclick="checkPass()">دخول ✨</button>
 </div>
 
-<div class="card hidden" id="mainCard">
-    <h1>بحبك يا نور عيني ❤️</h1>
+<div class="main-container hidden" id="mainCard">
     
-    <div class="timer-box">
-        <div>بقالنا مع بعض:</div>
-        <div class="timer" id="timer">جاري الحساب...</div>
+    <div class="sub-heading">بحبك يا نور عيني ❤️🥰</div>
+    <div class="main-title">حبيبي 😍</div>
+    <div class="sub-heading">بحبك يا نور عيني ❤️🥰</div>
+
+    <div class="timer-container">
+        <div class="timer-title">❤️ مع بعض وحبنا بيكبر بقالنا:</div>
+        <div class="timer-grid">
+            <div class="time-box">
+                <div class="time-number" id="days">0</div>
+                <div class="time-label">يوم</div>
+            </div>
+            <div class="time-box">
+                <div class="time-number" id="hours">0</div>
+                <div class="time-label">ساعة</div>
+            </div>
+            <div class="time-box">
+                <div class="time-number" id="minutes">0</div>
+                <div class="time-label">دقيقة</div>
+            </div>
+            <div class="time-box">
+                <div class="time-number" id="seconds">0</div>
+                <div class="time-label">ثانية</div>
+            </div>
+        </div>
     </div>
 
-    <div class="gift-box" onclick="alert('كل سنة وأنت معايا يا أغلى حاجة في حياتي! 🎁❤️')">🎁</div>
-    <p style="font-size: 12px; color: #aaa;">اضغط على الهدية 👆</p>
+    <div class="sub-heading">بحبك يا نور عيني ❤️🥰</div>
 
-    <audio id="bgSong" src="song.mp3" loop></audio>
+    <button class="btn-main" onclick="showMainSurprise()" style="width: 90%; max-width: 320px;">
+        دوس يا ابو العيال ❤️
+    </button>
+
+    <div style="margin-top: 5px;">
+        <div class="gift-box" onclick="openGift()">🎁</div>
+        <div style="font-size: 13px; color: #ff2a5f; font-weight: bold;">افتح الهدية دي كمان 🙈👇</div>
+    </div>
+
 </div>
 
+<div class="music-pill hidden" id="musicPill" onclick="toggleMusic()">
+    <span class="music-text">❤️ أغنيتنا</span>
+    <div class="music-btn" id="musicIcon">⏸</div>
+</div>
+
+<audio id="bgSong" src="song.mp3" loop></audio>
+
 <script>
+    function createHearts() {
+        const hearts = ['❤️', '💖', '✨', '💕', '🌸'];
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 7000);
+        }, 400);
+    }
+    createHearts();
+
     function checkPass() {
         const pass = document.getElementById('passInput').value.trim();
         if(pass === 'حبيبي') {
             document.getElementById('loginCard').classList.add('hidden');
             document.getElementById('mainCard').classList.remove('hidden');
+            document.getElementById('musicPill').classList.remove('hidden');
+            
             const song = document.getElementById('bgSong');
             song.play().catch(() => {});
             startTimer();
@@ -53,17 +283,42 @@
         }
     }
 
+    function toggleMusic() {
+        const song = document.getElementById('bgSong');
+        const icon = document.getElementById('musicIcon');
+        if (song.paused) {
+            song.play();
+            icon.innerText = '⏸';
+        } else {
+            song.pause();
+            icon.innerText = '▶';
+        }
+    }
+
     function startTimer() {
         const startDate = new Date('2026-05-15T00:00:00');
         setInterval(() => {
             const now = new Date();
             const diff = now - startDate;
+            
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
             const minutes = Math.floor((diff / 1000 / 60) % 60);
             const seconds = Math.floor((diff / 1000) % 60);
-            document.getElementById('timer').innerHTML = `${days} يوم و ${hours} ساعة و ${minutes} دقيقة و ${seconds} ثانية`;
+
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
         }, 1000);
+    }
+
+    function showMainSurprise() {
+        alert('أنا بعشق كل تفصيلة فيك يا ابو العيال! ❤️😍');
+    }
+
+    function openGift() {
+        alert('بحبك');
     }
 </script>
 
